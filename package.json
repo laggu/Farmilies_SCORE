@@ -1,0 +1,50 @@
+{
+  "id":"Farmilies_Score",
+  "version":"1.0.0",
+  "auth":{
+    "name":"laggu",
+    "email":"YOUR_TEAM_EMAIL",
+    "org":"CoIN"
+  },
+  "dependencies":{},
+  "description":"YOUR_OWN_DESCRIPTION",
+  "repository":{},
+  "homepage":"http://www.theloop.co.kr",
+  "function":{
+    "invoke":[
+      {
+        "method":"invoke_contract",
+        "params": {
+          "key":"string",
+          "value":"string"
+        },
+        "description":"invoke function for contract db."
+      },
+      {
+        "method":"invoke_person",
+        "params": {
+          "key":"string",
+          "value":"string"
+        },
+        "description":"invoke function for person db."
+      }
+    ],
+    "query":[
+      {
+        "method":"query_contract",
+        "params": {
+          "key":"string"
+        },
+        "description":"query function for contract db."
+      },
+      {
+        "method":"query_person",
+        "params": {
+          "key":"string"
+        },
+        "description":"query function for person db."
+      }
+    ]
+  },
+  "main":"Farmilies_Score"
+}
