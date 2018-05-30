@@ -26,7 +26,7 @@
           "key":"string",
           "value":"string"
         },
-        "description":"invoke function for contract db."
+        "description":"invoke function for done contract."
       },
       {
         "method":"invoke_cancel",
@@ -34,7 +34,14 @@
           "key":"string",
           "value":"string"
         },
-        "description":"invoke function for contract db."
+        "description":"invoke function for canceld contract."
+      },
+      {
+        "method":"invoke_person",
+        "params": {
+          "key":"string",
+        },
+        "description":"invoke function for initializing person."
       },
       {
         "method":"invoke_rating",
@@ -42,7 +49,7 @@
           "key":"string",
           "rating":"string"
         },
-        "description":"invoke function for contract db."
+        "description":"invoke function for rating."
       },
       {
         "method":"invoke_purchase_token",
@@ -50,7 +57,7 @@
           "key":"string",
           "purchase_token":"string"
         },
-        "description":"invoke function for contract db."
+        "description":"invoke function for purchasing token."
       },
       {
         "method":"invoke_spend_token",
@@ -58,7 +65,7 @@
           "key":"string",
           "spending_amount":"string"
         },
-        "description":"invoke function for person db."
+        "description":"invoke function for spending token"
       }
     ],
     "query":[
