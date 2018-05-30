@@ -21,10 +21,42 @@
         "description":"invoke function for contract db."
       },
       {
-        "method":"invoke_person",
+        "method":"invoke_done",
         "params": {
           "key":"string",
           "value":"string"
+        },
+        "description":"invoke function for contract db."
+      },
+      {
+        "method":"invoke_cancel",
+        "params": {
+          "key":"string",
+          "value":"string"
+        },
+        "description":"invoke function for contract db."
+      },
+      {
+        "method":"invoke_rating",
+        "params": {
+          "key":"string",
+          "rating":"string"
+        },
+        "description":"invoke function for contract db."
+      },
+      {
+        "method":"invoke_purchase_token",
+        "params": {
+          "key":"string",
+          "purchase_token":"string"
+        },
+        "description":"invoke function for contract db."
+      },
+      {
+        "method":"invoke_spend_token",
+        "params": {
+          "key":"string",
+          "spending_amount":"string"
         },
         "description":"invoke function for person db."
       }
