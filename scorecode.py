@@ -49,7 +49,9 @@ class SCOREBusinessLogic:
         contract_value = params["value"]
         contract = json.loads(params["value"])
         farmer_key = contract["farmer"]
-        farmer = json.loads(self.__db_person.get_in_invoke(farmer_key.encode()))
+
+        orginal_farmer_data = self.__db_person.get_in_invoke(farmer_key.encode())
+        farmer = json.loads(orginal_farmer_data)
 
         if farmer["token"] < contract["reward"]:
             return SCOREResponse.exception("Not Enough Token.")
@@ -58,9 +60,14 @@ class SCOREBusinessLogic:
         farmer["binded_token"] += contract["reward"]
 
         farmer_value = json.dumps(farmer)
-        self.put_to_db(self.__db_person,farmer_key, farmer_value)
 
-        return self.put_to_db(self.__db_contract,contract_key,contract_value)
+        farmer_response = self.put_to_db(self.__db_person,farmer_key, farmer_value)
+        contract_response = self.put_to_db(self.__db_contract,contract_key,contract_value)
+
+        if farmer_response["code"] == 0 and contract_response["code"] == 0:
+            return SCOREResponse.succeed()
+        else:
+            return SCOREResponse.exception("exception while writing db")
 
     def invoke_done(self, log_func, id, params: dict, block=None):
         contract_key = params["key"]
@@ -84,20 +91,39 @@ class SCOREBusinessLogic:
         citizen_value = json.dumps(citizen)
         contract_value = json.dumps(contract)
 
-        self.put_to_db(self.__db_person, farmer_key, farmer_value)
-        self.put_to_db(self.__db_person, citizen_key, citizen_value)
-        return self.put_to_db(self.__db_contract, contract_key, contract_value)
+        farmer_response = self.put_to_db(self.__db_person, farmer_key, farmer_value)
+        citizen_response = self.put_to_db(self.__db_person, citizen_key, citizen_value)
+        contract_response = self.put_to_db(self.__db_contract, contract_key, contract_value)
+
+        if farmer_response["code"] == 0 and citizen_response["code"] == 0 and contract_response["code"] == 0:
+            return SCOREResponse.succeed()
+        else:
+            return SCOREResponse.exception("exception while writing db")
 
     def invoke_cancel(self, log_func, id, params: dict, block=None):
-        key = params["key"]
+        contract_key = params["key"]
         canceled_contract = params["value"]
 
-        contract = json.loads(self.__db_contract.get_in_invoke(key.encode()))
+        contract = json.loads(self.__db_contract.get_in_invoke(contract_key.encode()))
         contract["fulfillment"] = canceled_contract
 
-        value = json.dumps(contract)
+        contract_value = json.dumps(contract)
 
-        return self.put_to_db(self.__db_contract, key, value)
+        farmer_key = contract["farmer"]
+        farmer = json.loads(self.__db_person.get_in_invoke(farmer_key.encode()))
+
+        farmer["binded_token"] -= contract["reward"]
+        farmer["token"] += contract["reward"]
+
+        farmer_value = json.dumps(farmer)
+
+        farmer_response = self.put_to_db(self.__db_person, farmer_key, farmer_value)
+        contract_response = self.put_to_db(self.__db_contract, contract_key, contract_value)
+
+        if farmer_response["code"] == 0 and contract_response["code"] == 0:
+            return SCOREResponse.succeed()
+        else:
+            return SCOREResponse.exception("exception while writing db")
 
     def invoke_person(self, log_func, id, params: dict, block=None):
         key = params["key"]
