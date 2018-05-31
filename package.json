@@ -39,7 +39,7 @@
       {
         "method":"invoke_person",
         "params": {
-          "key":"string",
+          "key":"string"
         },
         "description":"invoke function for initializing person."
       },

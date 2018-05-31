@@ -203,7 +203,7 @@ class SCOREBusinessLogic:
         key = params["key"]
 
         try:
-            data = self.__db__contract.get_in_query(key.encode())
+            data = self.__db_contract.get_in_query(key.encode())
 
             result = {"data": data.decode("utf-8")}
             log_func('Queried data: {result}')
@@ -219,7 +219,7 @@ class SCOREBusinessLogic:
         key = params["key"]
 
         try:
-            data = self.__db__person.get_in_query(key.encode())
+            data = self.__db_person.get_in_query(key.encode())
 
             result = {"data": data.decode("utf-8")}
             log_func('Queried data: {result}')
