@@ -167,6 +167,8 @@ class SCOREBusinessLogic:
         spending_amount = int(params["spending_amount"])
 
         person = json.loads(self.__db_person.get_in_invoke(key.encode()))
+        if person["token"] < spending_amount:
+            return SCOREResponse.exception("not enough token")
         person["token"] -= spending_amount
 
         value = json.dumps(person)
